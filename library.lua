@@ -602,10 +602,13 @@ function Library:CreateWindow(options)
                     Size = UDim2.new(0, 15, 1, 0), Font = Config.FontBold, Text = "▼", TextColor3 = Config.Theme.SubText, TextSize = 10, ZIndex = 2
                 })
 
-                local OptionsContainer = Create("Frame", {
+                local OptionsContainer = Create("ScrollingFrame", {
                     Parent = DropdownFrame, BackgroundColor3 = Config.Theme.Background,
                     Position = UDim2.new(0, 0, 0, 45), Size = UDim2.new(1, 0, 0, 0), 
-                    ClipsDescendants = true, ZIndex = 5, Visible = false
+                    ClipsDescendants = true, ZIndex = 5, Visible = false,
+                    ScrollBarThickness = 3,
+                    ScrollBarImageColor3 = Config.Theme.Accent,
+                    CanvasSize = UDim2.new(0, 0, 0, 0)
                 })
                 AddCorner(OptionsContainer, 4)
                 AddStroke(OptionsContainer, 1, Config.Theme.Accent)
@@ -616,7 +619,7 @@ function Library:CreateWindow(options)
 
                 local DropdownOpen = false
                 
-                local function CloseDropdown(exceptFrame)
+                local function CloseDropdown()
                     if DropdownOpen and OptionsContainer.Parent then
                         Tween(OptionsContainer, {Size = UDim2.new(1, 0, 0, 0)}, TweenInfo.new(0.2)).Completed:Connect(function()
                             OptionsContainer.Visible = false
@@ -631,8 +634,14 @@ function Library:CreateWindow(options)
                     OptionsContainer.Visible = true
                     
                     if DropdownOpen then
-                        local optionsHeight = #options * 25
-                        Tween(OptionsContainer, {Size = UDim2.new(1, 0, 0, optionsHeight)}, TweenInfo.new(0.2))
+                        local itemHeight = 25
+                        local totalContentHeight = #options * itemHeight
+                        local maxHeight = 200 
+                        
+                        OptionsContainer.CanvasSize = UDim2.new(0, 0, 0, totalContentHeight)
+                        
+                        local visibleHeight = math.min(totalContentHeight, maxHeight)
+                        Tween(OptionsContainer, {Size = UDim2.new(1, 0, 0, visibleHeight)}, TweenInfo.new(0.2))
                         Tween(ArrowLabel, {Rotation = 180}, TweenInfo.new(0.2))
                     else
                         CloseDropdown()
