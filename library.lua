@@ -580,6 +580,105 @@ function Library:CreateWindow(options)
                 end))
             end
 
+            function Section:CreateDropdown(dArgs)
+                local dName = dArgs.Name or "Dropdown"
+                local options = dArgs.Options or {"Option 1", "Option 2"}
+                local def = dArgs.Default or options[1]
+                local callback = dArgs.Callback or function() end
+                
+                local DropdownFrame = Create("Frame", {Parent = ItemsContainer, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 45)})
+                
+                local DropdownLabel = Create("TextLabel", {Parent = DropdownFrame, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 15), Font = Config.Font, Text = dName, TextColor3 = Config.Theme.Text, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Left})
+                
+                local SelectedText = Create("TextButton", {
+                    Parent = DropdownFrame, BackgroundColor3 = Config.Theme.Background, Position = UDim2.new(0, 0, 0, 20),
+                    Size = UDim2.new(1, 0, 0, 25), Font = Config.Font, Text = def, TextColor3 = Config.Theme.Text, TextSize = 12,
+                    TextXAlignment = Enum.TextXAlignment.Left, TextScaled = true, TextWrapped = true
+                })
+                AddCorner(SelectedText, 4)
+                
+                local ArrowLabel = Create("TextLabel", {
+                    Parent = SelectedText, BackgroundTransparency = 1, Position = UDim2.new(1, -15, 0.5, 0), AnchorPoint = Vector2.new(1, 0.5),
+                    Size = UDim2.new(0, 15, 1, 0), Font = Config.FontBold, Text = "▼", TextColor3 = Config.Theme.SubText, TextSize = 10, ZIndex = 2
+                })
+
+                local OptionsContainer = Create("Frame", {
+                    Parent = DropdownFrame, BackgroundColor3 = Config.Theme.Background,
+                    Position = UDim2.new(0, 0, 0, 45), Size = UDim2.new(1, 0, 0, 0), 
+                    ClipsDescendants = true, ZIndex = 5, Visible = false
+                })
+                AddCorner(OptionsContainer, 4)
+                AddStroke(OptionsContainer, 1, Config.Theme.Accent)
+
+                local OptionsList = Create("UIListLayout", {
+                    Parent = OptionsContainer, SortOrder = Enum.SortOrder.LayoutOrder
+                })
+
+                local DropdownOpen = false
+                
+                local function CloseDropdown(exceptFrame)
+                    if DropdownOpen and OptionsContainer.Parent then
+                        Tween(OptionsContainer, {Size = UDim2.new(1, 0, 0, 0)}, TweenInfo.new(0.2)).Completed:Connect(function()
+                            OptionsContainer.Visible = false
+                        end)
+                        Tween(ArrowLabel, {Rotation = 0}, TweenInfo.new(0.2))
+                        DropdownOpen = false
+                    end
+                end
+
+                local function ToggleDropdown()
+                    DropdownOpen = not DropdownOpen
+                    OptionsContainer.Visible = true
+                    
+                    if DropdownOpen then
+                        local optionsHeight = #options * 25
+                        Tween(OptionsContainer, {Size = UDim2.new(1, 0, 0, optionsHeight)}, TweenInfo.new(0.2))
+                        Tween(ArrowLabel, {Rotation = 180}, TweenInfo.new(0.2))
+                    else
+                        CloseDropdown()
+                    end
+                end
+                
+                AddConnection(SelectedText.MouseButton1Click:Connect(ToggleDropdown))
+
+                for i, option in ipairs(options) do
+                    local OptionButton = Create("TextButton", {
+                        Parent = OptionsContainer, BackgroundColor3 = Config.Theme.Background, BackgroundTransparency = 0,
+                        Size = UDim2.new(1, 0, 0, 25), Text = option, Font = Config.Font, TextColor3 = Config.Theme.Text,
+                        TextSize = 12, TextXAlignment = Enum.TextXAlignment.Left, TextPadding = Insets.new(5, 0, 0, 0), AutoButtonColor = false
+                    })
+                    
+                    if option == SelectedText.Text then
+                         OptionButton.BackgroundColor3 = Config.Theme.Accent
+                    end
+
+                    AddConnection(OptionButton.MouseEnter:Connect(function()
+                        if OptionButton.Text ~= SelectedText.Text then
+                            Tween(OptionButton, {BackgroundColor3 = Config.Theme.Sidebar}, TweenInfo.new(0.1))
+                        end
+                    end))
+                    
+                    AddConnection(OptionButton.MouseLeave:Connect(function()
+                        if OptionButton.Text ~= SelectedText.Text then
+                            Tween(OptionButton, {BackgroundColor3 = Config.Theme.Background}, TweenInfo.new(0.1))
+                        end
+                    end))
+
+                    AddConnection(OptionButton.MouseButton1Click:Connect(function()
+                        for _, v in OptionsContainer:GetChildren() do
+                            if v:IsA("TextButton") then
+                                Tween(v, {BackgroundColor3 = Config.Theme.Background}, TweenInfo.new(0.1))
+                            end
+                        end
+                        
+                        SelectedText.Text = option
+                        Tween(OptionButton, {BackgroundColor3 = Config.Theme.Accent}, TweenInfo.new(0.1))
+                        callback(option)
+                        CloseDropdown()
+                    end))
+                end
+            end
+
             return Section
         end
         return Tab
