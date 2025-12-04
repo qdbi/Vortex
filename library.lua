@@ -471,7 +471,7 @@ function Library:CreateWindow(options)
 
                 local Button = Create("TextButton", {
                     Parent = ItemsContainer, BackgroundColor3 = Config.Theme.Background, Size = UDim2.new(1, 0, 0, 30),
-                    Font = Config.Font, Text = bName, TextColor3 = Config.Theme.Text, TextSize = 12, AutoButtonColor = false
+                    Font = Config.Font, Text = bName, TextColor3 = Config.Theme.Text, TextSize = 14, AutoButtonColor = false
                 })
                 AddCorner(Button, 4)
                 
@@ -490,7 +490,7 @@ function Library:CreateWindow(options)
                 local toggled = def
 
                 local ToggleFrame = Create("Frame", {Parent = ItemsContainer, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 30)})
-                local ToggleLabel = Create("TextLabel", {Parent = ToggleFrame, BackgroundTransparency = 1, Size = UDim2.new(0.7, 0, 1, 0), Font = Config.Font, Text = tName, TextColor3 = Config.Theme.Text, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Left})
+                local ToggleLabel = Create("TextLabel", {Parent = ToggleFrame, BackgroundTransparency = 1, Size = UDim2.new(0.7, 0, 1, 0), Font = Config.Font, Text = tName, TextColor3 = Config.Theme.Text, TextSize = 14, TextXAlignment = Enum.TextXAlignment.Left})
                 local ToggleBtn = Create("TextButton", {Parent = ToggleFrame, BackgroundColor3 = toggled and Config.Theme.Accent or Config.Theme.Background, Position = UDim2.new(1, -45, 0.5, -10), Size = UDim2.new(0, 45, 0, 20), Text = ""})
                 AddCorner(ToggleBtn, 10)
                 local Circle = Create("Frame", {Parent = ToggleBtn, BackgroundColor3 = Config.Theme.Text, Position = toggled and UDim2.new(1, -18, 0.5, -8) or UDim2.new(0, 2, 0.5, -8), Size = UDim2.new(0, 16, 0, 16)})
@@ -509,7 +509,7 @@ function Library:CreateWindow(options)
             function Section:CreateLabel(text)
                 local Label = Create("TextLabel", {
                     Parent = ItemsContainer, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 20), Font = Config.Font, 
-                    Text = text, TextColor3 = Config.Theme.SubText, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Left
+                    Text = text, TextColor3 = Config.Theme.SubText, TextSize = 14, TextXAlignment = Enum.TextXAlignment.Left
                 })
             end
 
@@ -519,10 +519,10 @@ function Library:CreateWindow(options)
                 local callback = iArgs.Callback or function() end
 
                 local InputFrame = Create("Frame", {Parent = ItemsContainer, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 45)})
-                local InputLabel = Create("TextLabel", {Parent = InputFrame, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 15), Font = Config.Font, Text = iName, TextColor3 = Config.Theme.Text, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Left})
+                local InputLabel = Create("TextLabel", {Parent = InputFrame, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 15), Font = Config.Font, Text = iName, TextColor3 = Config.Theme.Text, TextSize = 14, TextXAlignment = Enum.TextXAlignment.Left})
                 local TextBox = Create("TextBox", {
                     Parent = InputFrame, BackgroundColor3 = Config.Theme.Background, Position = UDim2.new(0, 0, 0, 20),
-                    Size = UDim2.new(1, 0, 0, 25), Font = Config.Font, Text = "", PlaceholderText = placeholder, TextColor3 = Config.Theme.Text, TextSize = 12
+                    Size = UDim2.new(1, 0, 0, 25), Font = Config.Font, Text = "", PlaceholderText = placeholder, TextColor3 = Config.Theme.Text, TextSize = 14
                 })
                 AddCorner(TextBox, 4)
 
@@ -541,8 +541,8 @@ function Library:CreateWindow(options)
                 def = math.clamp(def, min, max)
 
                 local SliderFrame = Create("Frame", {Parent = ItemsContainer, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 45)})
-                local SliderLabel = Create("TextLabel", {Parent = SliderFrame, BackgroundTransparency = 1, Size = UDim2.new(0.7, 0, 0, 15), Font = Config.Font, Text = sName, TextColor3 = Config.Theme.Text, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Left})
-                local ValueLabel = Create("TextLabel", {Parent = SliderFrame, BackgroundTransparency = 1, Size = UDim2.new(0.3, 0, 0, 15), Position = UDim2.new(0.7, 0, 0, 0), Font = Config.FontBold, Text = tostring(math.floor(def)), TextColor3 = Config.Theme.Accent, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Right})
+                local SliderLabel = Create("TextLabel", {Parent = SliderFrame, BackgroundTransparency = 1, Size = UDim2.new(0.7, 0, 0, 15), Font = Config.Font, Text = sName, TextColor3 = Config.Theme.Text, TextSize = 14, TextXAlignment = Enum.TextXAlignment.Left})
+                local ValueLabel = Create("TextLabel", {Parent = SliderFrame, BackgroundTransparency = 1, Size = UDim2.new(0.3, 0, 0, 15), Position = UDim2.new(0.7, 0, 0, 0), Font = Config.FontBold, Text = tostring(math.floor(def)), TextColor3 = Config.Theme.Accent, TextSize = 14, TextXAlignment = Enum.TextXAlignment.Right})
                 local Bar = Create("Frame", {Parent = SliderFrame, BackgroundColor3 = Config.Theme.Background, Position = UDim2.new(0, 0, 0, 25), Size = UDim2.new(1, 0, 0, 8)})
                 AddCorner(Bar, 4)
                 local initialScale = (def - min) / (max - min)
@@ -588,18 +588,18 @@ function Library:CreateWindow(options)
                 
                 local DropdownFrame = Create("Frame", {Parent = ItemsContainer, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 45)})
                 
-                local DropdownLabel = Create("TextLabel", {Parent = DropdownFrame, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 15), Font = Config.Font, Text = dName, TextColor3 = Config.Theme.Text, TextSize = 12, TextXAlignment = Enum.TextXAlignment.Left})
+                local DropdownLabel = Create("TextLabel", {Parent = DropdownFrame, BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 15), Font = Config.Font, Text = dName, TextColor3 = Config.Theme.Text, TextSize = 14, TextXAlignment = Enum.TextXAlignment.Left})
                 
                 local SelectedText = Create("TextButton", {
                     Parent = DropdownFrame, BackgroundColor3 = Config.Theme.Background, Position = UDim2.new(0, 0, 0, 20),
-                    Size = UDim2.new(1, 0, 0, 25), Font = Config.Font, Text = def, TextColor3 = Config.Theme.Text, TextSize = 12,
-                    TextXAlignment = Enum.TextXAlignment.Left, TextScaled = true, TextWrapped = true
+                    Size = UDim2.new(1, 0, 0, 25), Font = Config.Font, Text = def, TextColor3 = Config.Theme.Text, TextSize = 14,
+                    TextXAlignment = Enum.TextXAlignment.Left, TextScaled = true, TextWrapped = true, TextPadding = Insets.new(5, 0, 0, 0)
                 })
                 AddCorner(SelectedText, 4)
                 
                 local ArrowLabel = Create("TextLabel", {
                     Parent = SelectedText, BackgroundTransparency = 1, Position = UDim2.new(1, -15, 0.5, 0), AnchorPoint = Vector2.new(1, 0.5),
-                    Size = UDim2.new(0, 15, 1, 0), Font = Config.FontBold, Text = "▼", TextColor3 = Config.Theme.SubText, TextSize = 10, ZIndex = 2
+                    Size = UDim2.new(0, 15, 1, 0), Font = Config.FontBold, Text = "▼", TextColor3 = Config.Theme.SubText, TextSize = 12, ZIndex = 2
                 })
 
                 local OptionsContainer = Create("ScrollingFrame", {
@@ -607,8 +607,7 @@ function Library:CreateWindow(options)
                     Position = UDim2.new(0, 0, 0, 45), Size = UDim2.new(1, 0, 0, 0), 
                     ClipsDescendants = true, ZIndex = 5, Visible = false,
                     ScrollBarThickness = 3,
-                    ScrollBarImageColor3 = Config.Theme.Accent,
-                    CanvasSize = UDim2.new(0, 0, 0, 0)
+                    ScrollBarImageColor3 = Config.Theme.Accent
                 })
                 AddCorner(OptionsContainer, 4)
                 AddStroke(OptionsContainer, 1, Config.Theme.Accent)
@@ -633,13 +632,13 @@ function Library:CreateWindow(options)
                     DropdownOpen = not DropdownOpen
                     OptionsContainer.Visible = true
                     
+                    local itemHeight = 25
+                    local totalContentHeight = #options * itemHeight
+                    local maxHeight = 200 
+                    
+                    OptionsContainer.CanvasSize = UDim2.new(0, 0, 0, totalContentHeight)
+                    
                     if DropdownOpen then
-                        local itemHeight = 25
-                        local totalContentHeight = #options * itemHeight
-                        local maxHeight = 200 
-                        
-                        OptionsContainer.CanvasSize = UDim2.new(0, 0, 0, totalContentHeight)
-                        
                         local visibleHeight = math.min(totalContentHeight, maxHeight)
                         Tween(OptionsContainer, {Size = UDim2.new(1, 0, 0, visibleHeight)}, TweenInfo.new(0.2))
                         Tween(ArrowLabel, {Rotation = 180}, TweenInfo.new(0.2))
@@ -654,7 +653,7 @@ function Library:CreateWindow(options)
                     local OptionButton = Create("TextButton", {
                         Parent = OptionsContainer, BackgroundColor3 = Config.Theme.Background, BackgroundTransparency = 0,
                         Size = UDim2.new(1, 0, 0, 25), Text = option, Font = Config.Font, TextColor3 = Config.Theme.Text,
-                        TextSize = 12, TextXAlignment = Enum.TextXAlignment.Left, TextPadding = Insets.new(5, 0, 0, 0), AutoButtonColor = false
+                        TextSize = 14, TextXAlignment = Enum.TextXAlignment.Left, AutoButtonColor = false
                     })
                     
                     if option == SelectedText.Text then
