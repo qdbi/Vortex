@@ -102,7 +102,7 @@ function Library:CreateWindow(config)
     
     TabContainer = CreateUIInstance("Frame", {
         Size = UDim2.new(0, 100, 1, -30),
-        Position = UDim2.new(0, 0, 0, 30),
+        Position = UDim2.new(0, 100, 0, 30),
         BackgroundColor3 = Config.AccentColor,
         BorderSizePixel = 0,
         Parent = MainFrame
@@ -173,6 +173,7 @@ function CurrentWindow:Destroy()
     if ScreenGui then
         ScreenGui:Destroy()
     end
+    ScreenGui = nil -- Safely clear the global variable reference
 end
 
 function CurrentWindow:CreateTab(name)
